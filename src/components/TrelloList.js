@@ -21,7 +21,8 @@ const styles = {
     width: "23%",
     minWidth: "300px",
     padding: "8px",
-    margin: "10px"
+    margin: "10px",
+    heigth:"100%"
   }
 };
 
