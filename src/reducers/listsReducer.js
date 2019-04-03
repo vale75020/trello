@@ -1,6 +1,7 @@
-import {CONSTANTS} from "../actions";
+import { CONSTANTS } from "../actions";
 
-let listID = 4
+let listID = 4;
+let cardID = 2;
 
 const initialState = [
   {
@@ -9,7 +10,7 @@ const initialState = [
     cards: [
       {
         id: 0,
-        text: "card text to do "  // cards of the first list
+        text: "card text to do " // cards of the first list
       },
       {
         id: 1,
@@ -23,7 +24,7 @@ const initialState = [
     cards: [
       {
         id: 0,
-        text: "card text doing"  // cards of the second list
+        text: "card text doing" // cards of the second list
       },
       {
         id: 1,
@@ -37,7 +38,7 @@ const initialState = [
     cards: [
       {
         id: 0,
-        text: "card text done"  // cards of the third list
+        text: "card text done" // cards of the third list
       },
       {
         id: 1,
@@ -51,28 +52,47 @@ const initialState = [
     cards: [
       {
         id: 0,
-        text: "card text deployed"  // cards of the first list
+        text: "card text deployed" // cards of the first list
       },
       {
         id: 1,
         text: "card text1 deployed"
       }
     ]
-  },
-  
+  }
 ];
 
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_LIST:
-    const newList = {
-      title: action.payload,
-      cards: [],
-      id: listID
-    }
-    listID +=1
-    return[...state, newList]
-    
+      const newList = {
+        title: action.payload,
+        cards: [],
+        id: listID
+      };
+      listID += 1;
+      return [...state, newList];
+
+    case CONSTANTS.ADD_CARD:
+      const newCard = {
+        text: action.payload.text,
+        id: cardID
+      };
+      cardID += 1;
+
+      const newState = state.map(list => {
+        if (list.id === action.payload.cardID) {
+          return {
+            ...list,
+            cards: [...list.cards, newCard]
+          };
+        } else {
+          return list;
+        }
+      });
+
+      return newState
+
     default:
       return state;
   }
